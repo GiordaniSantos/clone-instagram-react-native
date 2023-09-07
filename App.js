@@ -7,7 +7,7 @@
 
 import React from 'react';
 import Header from './src/components/Header'
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Post from './src/components/Post'
 
 
