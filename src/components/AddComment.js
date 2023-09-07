@@ -17,8 +17,8 @@ class AddComment extends Component {
         if(this.state.editMode){
             commentArea = (
                 <View style={styles.container}>
-                    <TextInput placeholder='Pode comentar...' s
-                        tyle={styles.input} 
+                    <TextInput placeholder='Pode comentar...' 
+                        style={styles.input} 
                         autoFocus={true} 
                         value={this.state.comment} 
                         onChangeText={comment => this.setState({ comment })} 
