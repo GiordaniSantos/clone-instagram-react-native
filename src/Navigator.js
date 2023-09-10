@@ -5,22 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Feed from './screens/Feed';
 import AddPhoto from './screens/AddPhoto';
-
-function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
-
-function Notifications() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notifications!</Text>
-    </View>
-  );
-}
+import Profile from './screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +31,7 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Notifications"
+        name="AddPhoto"
         component={AddPhoto}
         options={{
           tabBarLabel: 'Updates',
