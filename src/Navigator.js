@@ -14,7 +14,7 @@ import Register from './screens/Register';
 const Stack = createStackNavigator();
 
 const LoginOrProfileRouter = () =>
-    <Stack.Navigator initialRouteName='Perfil'>
+    <Stack.Navigator initialRouteName='Login'>
         <Stack.Screen name='Perfil' component={Profile} options={{headerShown: false}} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Registro' component={Register} />
