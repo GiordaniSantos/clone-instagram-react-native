@@ -1,26 +1,21 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 
-class Login extends Component{
+class Register extends Component {
     state = {
+        name: '',
         email: '',
         password: ''
-    }
-
-    login = () => {
-        this.props.navigation.navigate('Perfil')
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <TextInput placeholder='Email' style={styles.input} autoFocus={true} keyboardType='email-address' value={this.state.email} onChangeText={email => this.setState({ email })} />
+                <TextInput placeholder='Nome' style={styles.input} autoFocus={true} value={this.state.name} onChangeText={name => this.setState({ name })}/>
+                <TextInput placeholder='Email' style={styles.input} keyboardType='email-address' value={this.state.email} onChangeText={email => this.setState({ email })}/>
                 <TextInput placeholder='Senha' style={styles.input} secureTextEntry={true} value={this.state.password} onChangeText={password => this.setState({ password })}/>
-                <TouchableOpacity onPress={this.login} style={styles.buttom} >
-                    <Text style={styles.buttomText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('Registro') }} style={styles.buttom} >
-                    <Text style={styles.buttomText}>Criar nova conta...</Text>
+                <TouchableOpacity onPress={() => {  }} style={styles.buttom}>
+                    <Text style={styles.buttomText}>Salvar</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -36,7 +31,7 @@ const styles = StyleSheet.create({
     buttom: {
         marginTop: 30,
         padding: 10,
-        backgroundColor: '#4289f4'
+        backgroundColor: '#4286f4'
     },
     buttomText: {
         fontSize: 20,
@@ -48,8 +43,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#EEE',
         height: 40,
         borderWidth: 1,
-        borderColor: '#333'
+        borderColor: '#333',
+        paddingLeft: 15
     }
 })
 
-export default Login
+export default Register

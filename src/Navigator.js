@@ -8,6 +8,7 @@ import Feed from './screens/Feed';
 import AddPhoto from './screens/AddPhoto';
 import Profile from './screens/Profile';
 import Login from './screens/Login';
+import Register from './screens/Register';
 
 
 const Stack = createStackNavigator();
@@ -15,7 +16,8 @@ const Stack = createStackNavigator();
 const LoginOrProfileRouter = () =>
     <Stack.Navigator initialRouteName='Perfil'>
         <Stack.Screen name='Perfil' component={Profile} options={{headerShown: false}} />
-        <Stack.Screen name='Auth' component={Login} options={{headerShown: false}} />
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Registro' component={Register} />
     </Stack.Navigator>
 
 const Tab = createBottomTabNavigator();
