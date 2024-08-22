@@ -1,34 +1,20 @@
 import React, { Component } from 'react'
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    TextInput,
-    Image,
-    Dimensions,
-    Platform,
-    ScrollView,
-    Alert,
-    PermissionsAndroid,
-} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, Dimensions, Platform, ScrollView, Alert, PermissionsAndroid} from 'react-native'
+ 
+import { connect } from 'react-redux';
+import { addPost } from '../store/actions/posts';
+
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
  
  
-import {
-    launchCamera,
-    launchImageLibrary
-} from 'react-native-image-picker';
- 
- 
-export default class AddPhoto extends Component {
+class AddPhoto extends Component {
     options = {
         mediaType: 'photo',
         maxWidth: 800,
         maxHeight: 600
     };
     state = {
-        uri: null,
-        base64: null,
+        image: null,
         comment: '',
     }
      
@@ -79,7 +65,7 @@ export default class AddPhoto extends Component {
             launchCamera(this.options, (response) => {
                 if (!response.didCancel) {
                     console.log(response)
-                    this.setState({ uri: response.assets[0].uri, base64: response.assets[0].data })
+                    this.setState({ image: {uri: response.assets[0].uri, base64: response.assets[0].data} })
                 }
             });
         //}
@@ -88,13 +74,25 @@ export default class AddPhoto extends Component {
     pickImage = () => {
         launchImageLibrary(this.options, (response) => {
             if (!response.didCancel) {
-                this.setState({ uri: response.assets[0].uri, base64: response.assets[0].data })
+                this.setState({ image: {uri: response.assets[0].uri, base64: response.assets[0].data} })
             }
         });
     };
  
     save = async () => {
-        Alert.alert('Imagem Adicionada', this.state.comment)
+        this.props.onAddPost({
+            id: Math.random(),
+            nickname: this.props.name,
+            email: this.props.email,
+            image: this.state.image,
+            comments: [{
+                nickname: this.props.name,
+                comment: this.state.comment
+            }]
+        })
+
+        this.setState({ image: null, comment: '' })
+        this.props.navigation.navigate('Feed')
     }
  
     render() {
@@ -103,7 +101,7 @@ export default class AddPhoto extends Component {
                 <View style={styles.container}>
                     <Text style={styles.title}>Compartilhe uma imagem</Text>
                     <View style={styles.imageContainer}>
-                        { this.state.uri !== null ? <Image source={{uri: this.state.uri }} style={styles.image} /> :null}                       
+                        { this.state.image !== null ? <Image source={{uri: this.state.image.uri }} style={styles.image} /> :null}                       
                     </View>
                     <TouchableOpacity onPress={this.pickImage}
                         style={styles.buttom}>
@@ -167,3 +165,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#AAA'
     }
 })
+
+const mapStateToProps = ({ user }) => {
+    return {
+        email: user.email,
+        name: user.name
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddPost: post => dispatch(addPost(post))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddPhoto)
