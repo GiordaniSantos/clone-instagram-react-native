@@ -6,6 +6,7 @@ import { addPost } from '../store/actions/posts';
 
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
  
+const noUser = 'Você precisa estar logado para adicionar um Post'
  
 class AddPhoto extends Component {
     options = {
@@ -62,6 +63,11 @@ class AddPhoto extends Component {
         //let isCameraPermitted = await this.requestCameraPermission();
         //let isStoragePermitted = await this.requestExternalWritePermission();
         //if (isCameraPermitted && isStoragePermitted) {
+            if(!this.props.name){
+                Alert.alert('Falha!', noUser)
+                return
+            }
+
             launchCamera(this.options, (response) => {
                 if (!response.didCancel) {
                     console.log(response)
@@ -72,6 +78,11 @@ class AddPhoto extends Component {
     };
  
     pickImage = () => {
+        if(!this.props.name){
+            Alert.alert('Falha!', noUser)
+            return
+        }
+
         launchImageLibrary(this.options, (response) => {
             if (!response.didCancel) {
                 this.setState({ image: {uri: response.assets[0].uri, base64: response.assets[0].data} })
@@ -80,6 +91,11 @@ class AddPhoto extends Component {
     };
  
     save = async () => {
+        if(!this.props.name){
+            Alert.alert('Falha!', noUser)
+            return
+        }
+
         this.props.onAddPost({
             id: Math.random(),
             nickname: this.props.name,
@@ -113,6 +129,7 @@ class AddPhoto extends Component {
                     </TouchableOpacity>
                     <TextInput placeholder='Algum comentário para a foto?'
                         style={styles.input} value={this.state.comment}
+                        editable={this.props.name ? true : false}
                         //editable={this.props.name != null}
                         onChangeText={comment => this.setState({ comment })} />
                     <TouchableOpacity onPress={this.save}
