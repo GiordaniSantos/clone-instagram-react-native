@@ -12,4 +12,14 @@ const storeConfig = configureStore({
     reducer: reducers,
 });
 
+//configureStore({         
+//    reducer: reducers,         
+//    middleware: (getDefaultMiddleware) => 
+//        getDefaultMiddleware({             
+//            immutableCheck: false,             
+//            serializableCheck: false,        
+//        })     
+//    }
+//) 
+
 export default storeConfig
